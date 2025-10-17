@@ -1,4 +1,4 @@
-import { AppDataSource } from '../data-source.js';
+import { AppDataSource } from "../data-source.js";
 
 async function migrate() {
   await AppDataSource.initialize();
@@ -7,6 +7,6 @@ async function migrate() {
 }
 
 migrate().catch((error) => {
-  console.error('Migration failed', error);
+  console.error("Migration failed", error);
   process.exit(1);
 });

@@ -1,15 +1,15 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity } from "typeorm";
 
-import { BaseEntity } from './base.entity.js';
+import { BaseEntity } from "./base.entity.js";
 
-@Entity({ name: 'customers' })
+@Entity({ name: "customers" })
 export class Customer extends BaseEntity {
-  @Column({ type: 'text', name: 'display_name' })
+  @Column({ type: "text", name: "display_name" })
   displayName!: string;
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: "text", nullable: true })
   phone?: string | null;
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: "text", nullable: true })
   address?: string | null;
 }

@@ -1,4 +1,4 @@
-import { AppRole } from '../../../common/roles.decorator.js';
+import { AppRole } from "../../../common/roles.decorator.js";
 
 export interface TokenPayload {
   sub: string;

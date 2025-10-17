@@ -4,11 +4,11 @@ import {
   IsDateString,
   IsOptional,
   IsString,
-  ValidateNested
-} from 'class-validator';
-import { Type } from 'class-transformer';
+  ValidateNested,
+} from "class-validator";
+import { Type } from "class-transformer";
 
-import { InvoiceItemDto } from './invoice-item.dto.js';
+import { InvoiceItemDto } from "./invoice-item.dto.js";
 
 export class CreateInvoiceDto {
   @IsOptional()
