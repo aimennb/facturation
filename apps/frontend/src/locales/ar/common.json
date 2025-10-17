@@ -1,0 +1,25 @@
+{
+  "appTitle": "بيان الشراء",
+  "login": {
+    "title": "تسجيل الدخول",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "submit": "دخول",
+    "language": "اللغة"
+  },
+  "nav": {
+    "dashboard": "لوحة التحكم",
+    "invoices": "الفواتير",
+    "suppliers": "الموردون",
+    "advances": "السلف",
+    "reports": "التقارير",
+    "settings": "الإعدادات",
+    "portal": "بوابة المورد"
+  },
+  "actions": {
+    "newInvoice": "فاتورة جديدة",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "print": "طباعة"
+  }
+}

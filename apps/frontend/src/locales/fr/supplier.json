@@ -1,0 +1,8 @@
+{
+  "title": "Fournisseurs",
+  "balance": "Solde",
+  "ledger": "Grand livre",
+  "advances": "Avances",
+  "payments": "Paiements",
+  "export": "Exporter CSV"
+}
