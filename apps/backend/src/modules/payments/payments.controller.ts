@@ -8,11 +8,11 @@ import {
   UseGuards,
 } from "@nestjs/common";
 
-import { Roles } from "../../common/roles.decorator.js";
-import { RolesGuard } from "../../common/roles.guard.js";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
 import { PaymentsService } from "./payments.service.js";
 import { CreatePaymentDto } from "./dto/create-payment.dto.js";
+import { Roles } from "../../common/roles.decorator.js";
+import { RolesGuard } from "../../common/roles.guard.js";
 
 @Controller({ path: "payments", version: "1" })
 @UseGuards(JwtAuthGuard, RolesGuard)

@@ -1,24 +1,24 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
-  BadRequestException,
 } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { DataSource, EntityManager, Repository } from "typeorm";
 import { formatISO } from "date-fns";
 import * as puppeteer from "puppeteer";
+import { DataSource, EntityManager, Repository } from "typeorm";
 
-import { Invoice } from "../../domain/entities/invoice.entity.js";
+import { CreateInvoiceDto } from "./dto/create-invoice.dto.js";
+import { InvoiceItemDto } from "./dto/invoice-item.dto.js";
+import { InvoiceQueryDto } from "./dto/invoice-query.dto.js";
+import { UpdateInvoiceDto } from "./dto/update-invoice.dto.js";
+import { renderInvoiceHtml } from "./pdf/invoice-template.js";
+import { AuditService } from "../audit/audit.service.js";
+import { SettingsService } from "../settings/settings.service.js";
 import { InvoiceItem } from "../../domain/entities/invoice-item.entity.js";
+import { Invoice } from "../../domain/entities/invoice.entity.js";
 import { Product } from "../../domain/entities/product.entity.js";
 import { Supplier } from "../../domain/entities/supplier.entity.js";
-import { CreateInvoiceDto } from "./dto/create-invoice.dto.js";
-import { UpdateInvoiceDto } from "./dto/update-invoice.dto.js";
-import { InvoiceQueryDto } from "./dto/invoice-query.dto.js";
-import { InvoiceItemDto } from "./dto/invoice-item.dto.js";
-import { SettingsService } from "../settings/settings.service.js";
-import { AuditService } from "../audit/audit.service.js";
-import { renderInvoiceHtml } from "./pdf/invoice-template.js";
 
 @Injectable()
 export class InvoicesService {
@@ -49,6 +49,18 @@ export class InvoicesService {
     const net = Number((item.weightBrut - item.weightTare).toFixed(3));
     const amountCents = Math.round(net * item.unitPrice * 100);
     return { net, amountCents };
+  }
+
+  private buildItemDetails(item: InvoiceItemDto): Record<string, unknown> {
+    return {
+      productId: item.productId,
+      marque: item.marque,
+      colisCount: item.colisCount,
+      weightBrut: item.weightBrut,
+      weightTare: item.weightTare,
+      unitPrice: item.unitPrice,
+      description: item.description,
+    };
   }
 
   private async generateIdentifiers(
@@ -267,7 +279,7 @@ export class InvoicesService {
       "invoice.item.added",
       "Invoice",
       invoiceId,
-      itemDto as any,
+      this.buildItemDetails(itemDto),
       userId,
     );
     return this.findOne(invoiceId);
@@ -297,7 +309,7 @@ export class InvoicesService {
       "invoice.item.updated",
       "Invoice",
       item.invoiceId,
-      itemDto as any,
+      this.buildItemDetails(itemDto),
       userId,
     );
     return this.findOne(item.invoiceId);

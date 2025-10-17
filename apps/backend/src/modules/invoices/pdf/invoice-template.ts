@@ -1,5 +1,5 @@
-import { Invoice } from "../../../domain/entities/invoice.entity.js";
 import { CompanySettings } from "../../../domain/entities/company-settings.entity.js";
+import { Invoice } from "../../../domain/entities/invoice.entity.js";
 
 interface RenderOptions {
   locale: "fr" | "ar";

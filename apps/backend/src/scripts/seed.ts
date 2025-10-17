@@ -2,11 +2,11 @@ import * as argon2 from "argon2";
 
 import { AppDataSource } from "../data-source.js";
 import { CompanySettings } from "../domain/entities/company-settings.entity.js";
-import { Supplier } from "../domain/entities/supplier.entity.js";
-import { Product } from "../domain/entities/product.entity.js";
-import { User } from "../domain/entities/user.entity.js";
 import { Invoice } from "../domain/entities/invoice.entity.js";
 import { InvoiceItem } from "../domain/entities/invoice-item.entity.js";
+import { Product } from "../domain/entities/product.entity.js";
+import { Supplier } from "../domain/entities/supplier.entity.js";
+import { User } from "../domain/entities/user.entity.js";
 
 async function seed() {
   await AppDataSource.initialize();
@@ -20,7 +20,6 @@ async function seed() {
       carreauNo: "12",
       address: "Marché de gros Eucalyptus",
       phone: "+213 555 555 555",
-
     });
     await manager.save(settings);
   }

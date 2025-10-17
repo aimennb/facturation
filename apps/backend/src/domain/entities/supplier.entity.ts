@@ -2,8 +2,8 @@ import { Column, Entity, OneToMany } from "typeorm";
 
 import { BaseEntity } from "./base.entity.js";
 import { Invoice } from "./invoice.entity.js";
-import { SupplierAdvance } from "./supplier-advance.entity.js";
 import { Payment } from "./payment.entity.js";
+import { SupplierAdvance } from "./supplier-advance.entity.js";
 
 @Entity({ name: "suppliers" })
 export class Supplier extends BaseEntity {

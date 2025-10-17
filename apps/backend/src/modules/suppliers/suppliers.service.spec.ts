@@ -1,19 +1,31 @@
 import { NotFoundException } from "@nestjs/common";
+import { Repository } from "typeorm";
 
+import { Invoice } from "../../domain/entities/invoice.entity.js";
+import { Payment } from "../../domain/entities/payment.entity.js";
+import { SupplierAdvance } from "../../domain/entities/supplier-advance.entity.js";
+import { Supplier } from "../../domain/entities/supplier.entity.js";
 import { SuppliersService } from "./suppliers.service.js";
 
-const createRepo = () => ({
-  create: jest.fn(),
-  save: jest.fn(),
-  find: jest.fn(),
-  findOne: jest.fn(),
-  delete: jest.fn(),
-  findOneBy: jest.fn(),
-});
+const createRepo = () =>
+  ({
+    create: jest.fn(),
+    save: jest.fn(),
+    find: jest.fn(),
+    findOne: jest.fn(),
+    delete: jest.fn(),
+    findOneBy: jest.fn(),
+  }) satisfies Partial<Repository<Supplier>>;
 
-const createInvoiceRepo = () => ({ find: jest.fn() });
-const createAdvanceRepo = () => ({ find: jest.fn() });
-const createPaymentRepo = () => ({ find: jest.fn() });
+const createInvoiceRepo = () => ({ find: jest.fn() }) satisfies Partial<
+  Repository<Invoice>
+>;
+const createAdvanceRepo = () => ({ find: jest.fn() }) satisfies Partial<
+  Repository<SupplierAdvance>
+>;
+const createPaymentRepo = () => ({ find: jest.fn() }) satisfies Partial<
+  Repository<Payment>
+>;
 
 describe("SuppliersService", () => {
   let service: SuppliersService;
@@ -25,10 +37,10 @@ describe("SuppliersService", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     service = new SuppliersService(
-      supplierRepo as any,
-      invoiceRepo as any,
-      advanceRepo as any,
-      paymentRepo as any,
+      supplierRepo as unknown as Repository<Supplier>,
+      invoiceRepo as unknown as Repository<Invoice>,
+      advanceRepo as unknown as Repository<SupplierAdvance>,
+      paymentRepo as unknown as Repository<Payment>,
     );
   });
 

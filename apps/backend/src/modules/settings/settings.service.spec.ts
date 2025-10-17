@@ -1,10 +1,14 @@
+import { Repository } from "typeorm";
+
+import { CompanySettings } from "../../domain/entities/company-settings.entity.js";
 import { SettingsService } from "./settings.service.js";
 
-const createRepo = () => ({
-  findOne: jest.fn(),
-  save: jest.fn(),
-  create: jest.fn(() => ({})),
-});
+const createRepo = () =>
+  ({
+    findOne: jest.fn(),
+    save: jest.fn(),
+    create: jest.fn(() => ({})),
+  }) satisfies Partial<Repository<CompanySettings>>;
 
 describe("SettingsService", () => {
   const repo = createRepo();
@@ -12,7 +16,7 @@ describe("SettingsService", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    service = new SettingsService(repo as any);
+    service = new SettingsService(repo as unknown as Repository<CompanySettings>);
   });
 
   it("initializes company settings when missing", async () => {

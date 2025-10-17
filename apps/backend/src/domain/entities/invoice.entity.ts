@@ -8,10 +8,10 @@ import {
 } from "typeorm";
 
 import { BaseEntity } from "./base.entity.js";
-import { Supplier } from "./supplier.entity.js";
 import { Customer } from "./customer.entity.js";
-import { User } from "./user.entity.js";
 import { InvoiceItem } from "./invoice-item.entity.js";
+import { Supplier } from "./supplier.entity.js";
+import { User } from "./user.entity.js";
 
 @Entity({ name: "invoices" })
 export class Invoice extends BaseEntity {

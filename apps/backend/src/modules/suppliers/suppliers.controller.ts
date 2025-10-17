@@ -9,12 +9,12 @@ import {
   UseGuards,
 } from "@nestjs/common";
 
-import { Roles } from "../../common/roles.decorator.js";
-import { RolesGuard } from "../../common/roles.guard.js";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
 import { SuppliersService } from "./suppliers.service.js";
 import { CreateSupplierDto } from "./dto/create-supplier.dto.js";
 import { UpdateSupplierDto } from "./dto/update-supplier.dto.js";
+import { Roles } from "../../common/roles.decorator.js";
+import { RolesGuard } from "../../common/roles.guard.js";
 
 @Controller({ path: "suppliers", version: "1" })
 @UseGuards(JwtAuthGuard, RolesGuard)

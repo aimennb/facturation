@@ -1,4 +1,11 @@
-import { Body, Controller, Post, Req, UseGuards } from "@nestjs/common";
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Post,
+  Req,
+  UseGuards,
+} from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { Request } from "express";
 
@@ -18,7 +25,10 @@ export class AuthController {
 
   @Post("refresh")
   @UseGuards(AuthGuard("jwt-refresh"))
-  refresh(@Req() req: Request, @Body() _body: RefreshDto) {
+  refresh(@Req() req: Request, @Body() refreshDto: RefreshDto) {
+    if (!refreshDto.refreshToken) {
+      throw new BadRequestException("Refresh token is required");
+    }
     const payload = req.user as TokenPayload;
     return this.authService.refresh(payload);
   }
