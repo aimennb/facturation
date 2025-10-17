@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
 import * as argon2 from "argon2";
+import { Repository } from "typeorm";
 
-import { User } from "../../domain/entities/user.entity.js";
 import { CreateUserDto } from "./dto/create-user.dto.js";
 import { UpdateUserDto } from "./dto/update-user.dto.js";
+import { User } from "../../domain/entities/user.entity.js";
 
 @Injectable()
 export class UsersService {

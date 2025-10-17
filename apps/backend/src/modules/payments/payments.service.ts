@@ -2,11 +2,11 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
-import { Payment } from "../../domain/entities/payment.entity.js";
-import { Supplier } from "../../domain/entities/supplier.entity.js";
-import { Invoice } from "../../domain/entities/invoice.entity.js";
 import { CreatePaymentDto } from "./dto/create-payment.dto.js";
 import { AuditService } from "../audit/audit.service.js";
+import { Invoice } from "../../domain/entities/invoice.entity.js";
+import { Payment } from "../../domain/entities/payment.entity.js";
+import { Supplier } from "../../domain/entities/supplier.entity.js";
 
 @Injectable()
 export class PaymentsService {
@@ -37,11 +37,19 @@ export class PaymentsService {
     }
     const payment = this.paymentsRepository.create(payload);
     const saved = await this.paymentsRepository.save(payment);
+    const details: Record<string, unknown> = {
+      supplierId: payload.supplierId,
+      invoiceId: payload.invoiceId,
+      amountCents: payload.amountCents,
+      date: payload.date,
+      method: payload.method,
+      note: payload.note,
+    };
     await this.auditService.log(
       "payment.created",
       "Payment",
       saved.id,
-      payload as any,
+      details,
       userId,
     );
     return saved;

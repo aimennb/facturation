@@ -2,10 +2,10 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
-import { SupplierAdvance } from "../../domain/entities/supplier-advance.entity.js";
-import { Supplier } from "../../domain/entities/supplier.entity.js";
 import { CreateAdvanceDto } from "./dto/create-advance.dto.js";
 import { AuditService } from "../audit/audit.service.js";
+import { SupplierAdvance } from "../../domain/entities/supplier-advance.entity.js";
+import { Supplier } from "../../domain/entities/supplier.entity.js";
 
 @Injectable()
 export class AdvancesService {
@@ -33,11 +33,18 @@ export class AdvancesService {
       createdById: userId,
     });
     const saved = await this.advancesRepository.save(advance);
+    const details: Record<string, unknown> = {
+      supplierId,
+      date: payload.date,
+      reference: payload.reference,
+      amountCents: payload.amountCents,
+      note: payload.note,
+    };
     await this.auditService.log(
       "advance.created",
       "SupplierAdvance",
       saved.id,
-      payload as any,
+      details,
       userId,
     );
     return saved;

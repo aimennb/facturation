@@ -1,6 +1,6 @@
-import { renderInvoiceHtml } from "./invoice-template.js";
-import { Invoice } from "../../../domain/entities/invoice.entity.js";
 import { CompanySettings } from "../../../domain/entities/company-settings.entity.js";
+import { Invoice } from "../../../domain/entities/invoice.entity.js";
+import { renderInvoiceHtml } from "./invoice-template.js";
 
 describe("renderInvoiceHtml", () => {
   const invoice = {
@@ -42,6 +42,6 @@ describe("renderInvoiceHtml", () => {
 
   it("supports RTL rendering", () => {
     const html = renderInvoiceHtml(invoice, settings, { locale: "ar" });
-    expect(html).toContain("dir=\"rtl\"");
+    expect(html).toContain('dir="rtl"');
   });
 });

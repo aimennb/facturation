@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Patch, UseGuards } from "@nestjs/common";
 
-import { Roles } from "../../common/roles.decorator.js";
-import { RolesGuard } from "../../common/roles.guard.js";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
 import { SettingsService } from "./settings.service.js";
 import { UpdateCompanySettingsDto } from "./dto/update-company-settings.dto.js";
 import { UpdateNumberingDto } from "./dto/update-numbering.dto.js";
+import { Roles } from "../../common/roles.decorator.js";
+import { RolesGuard } from "../../common/roles.guard.js";
 
 @Controller({ path: "settings", version: "1" })
 @UseGuards(JwtAuthGuard, RolesGuard)

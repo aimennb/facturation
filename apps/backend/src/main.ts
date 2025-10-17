@@ -1,6 +1,6 @@
-import { NestFactory } from "@nestjs/core";
-import { ConfigService } from "@nestjs/config";
 import { ValidationPipe } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { NestFactory } from "@nestjs/core";
 import { json, urlencoded } from "express";
 
 import { AppModule } from "./app.module.js";

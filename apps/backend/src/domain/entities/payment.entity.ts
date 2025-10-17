@@ -1,8 +1,8 @@
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 import { BaseEntity } from "./base.entity.js";
-import { Supplier } from "./supplier.entity.js";
 import { Invoice } from "./invoice.entity.js";
+import { Supplier } from "./supplier.entity.js";
 
 @Entity({ name: "payments" })
 export class Payment extends BaseEntity {

@@ -2,9 +2,9 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
-import { CompanySettings } from "../../domain/entities/company-settings.entity.js";
 import { UpdateCompanySettingsDto } from "./dto/update-company-settings.dto.js";
 import { UpdateNumberingDto } from "./dto/update-numbering.dto.js";
+import { CompanySettings } from "../../domain/entities/company-settings.entity.js";
 
 @Injectable()
 export class SettingsService {
