@@ -167,19 +167,43 @@ export class InvoicesService {
 
   async update(id: string, payload: UpdateInvoiceDto, userId?: string) {
     const invoice = await this.findOne(id);
+    const changes: Record<string, unknown> = {};
+
     if (payload.date) {
       invoice.date = payload.date;
+      changes.date = payload.date;
     }
-    if (payload.deliveredTo !== undefined) invoice.deliveredTo = payload.deliveredTo;
-    if (payload.brand !== undefined) invoice.brand = payload.brand;
-    if (payload.packaging !== undefined) invoice.packaging = payload.packaging;
-    if (payload.consignment !== undefined) invoice.consignment = payload.consignment;
-    if (payload.carreau !== undefined) invoice.carreau = payload.carreau;
-    if (payload.supplierId !== undefined) invoice.supplierId = payload.supplierId;
-    if (payload.customerId !== undefined) invoice.customerId = payload.customerId;
+    if (payload.deliveredTo !== undefined) {
+      invoice.deliveredTo = payload.deliveredTo;
+      changes.deliveredTo = payload.deliveredTo;
+    }
+    if (payload.brand !== undefined) {
+      invoice.brand = payload.brand;
+      changes.brand = payload.brand;
+    }
+    if (payload.packaging !== undefined) {
+      invoice.packaging = payload.packaging;
+      changes.packaging = payload.packaging;
+    }
+    if (payload.consignment !== undefined) {
+      invoice.consignment = payload.consignment;
+      changes.consignment = payload.consignment;
+    }
+    if (payload.carreau !== undefined) {
+      invoice.carreau = payload.carreau;
+      changes.carreau = payload.carreau;
+    }
+    if (payload.supplierId !== undefined) {
+      invoice.supplierId = payload.supplierId;
+      changes.supplierId = payload.supplierId;
+    }
+    if (payload.customerId !== undefined) {
+      invoice.customerId = payload.customerId;
+      changes.customerId = payload.customerId;
+    }
 
     await this.invoicesRepository.save(invoice);
-    await this.auditService.log('invoice.updated', 'Invoice', invoice.id, payload, userId);
+    await this.auditService.log('invoice.updated', 'Invoice', invoice.id, changes, userId);
     return this.findOne(id);
   }
 
@@ -235,7 +259,9 @@ export class InvoicesService {
 
   private async recalculateTotals(invoiceId: string, manager: EntityManager) {
     const invoice = await manager.findOneOrFail(Invoice, { where: { id: invoiceId }, relations: ['items'] });
-    const total = invoice.items.reduce((sum, item) => sum + Number(item.amountCents), 0);
+    const items = invoice.items ?? [];
+    const total = items.reduce((sum, item) => sum + Number(item.amountCents), 0);
+    invoice.items = items;
     invoice.totalCents = total;
     await manager.save(invoice);
   }
@@ -245,7 +271,7 @@ export class InvoicesService {
     const settings = await this.settingsService.getCompany();
 
     const browser = await puppeteer.launch({
-      headless: 'new',
+      headless: true,
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined
     });
     const page = await browser.newPage();
