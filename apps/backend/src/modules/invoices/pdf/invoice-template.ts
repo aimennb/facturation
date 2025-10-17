@@ -1,120 +1,124 @@
-import { Invoice } from '../../../domain/entities/invoice.entity.js';
-import { CompanySettings } from '../../../domain/entities/company-settings.entity.js';
+import { Invoice } from "../../../domain/entities/invoice.entity.js";
+import { CompanySettings } from "../../../domain/entities/company-settings.entity.js";
 
 interface RenderOptions {
-  locale: 'fr' | 'ar';
+  locale: "fr" | "ar";
 }
 
 const translate = {
   title: {
     fr: "BULLETIN D’ACHAT",
-    ar: 'بيان الشراء'
+    ar: "بيان الشراء",
   },
   deliveredTo: {
-    fr: 'Délivré à',
-    ar: 'إلى السيد'
+    fr: "Délivré à",
+    ar: "إلى السيد",
   },
   brand: {
-    fr: 'Marque',
-    ar: 'الأصل'
+    fr: "Marque",
+    ar: "الأصل",
   },
   packaging: {
-    fr: 'Emb.',
-    ar: 'التغليف'
+    fr: "Emb.",
+    ar: "التغليف",
   },
   consignment: {
-    fr: 'Consignation',
-    ar: 'الضمان'
+    fr: "Consignation",
+    ar: "الضمان",
   },
   carreau: {
-    fr: 'Carreau',
-    ar: 'كاررو'
+    fr: "Carreau",
+    ar: "كاررو",
   },
   date: {
-    fr: 'Date',
-    ar: 'التاريخ'
+    fr: "Date",
+    ar: "التاريخ",
   },
   number: {
-    fr: 'N°',
-    ar: 'الرقم'
+    fr: "N°",
+    ar: "الرقم",
   },
   marque: {
-    fr: 'Marque',
-    ar: 'الأصل'
+    fr: "Marque",
+    ar: "الأصل",
   },
   colis: {
-    fr: 'N. colis',
-    ar: 'عدد الطلبيات'
+    fr: "N. colis",
+    ar: "عدد الطلبيات",
   },
   product: {
-    fr: 'Nature des produits',
-    ar: 'طبيعة المواد'
+    fr: "Nature des produits",
+    ar: "طبيعة المواد",
   },
   weight: {
-    fr: 'Poids',
-    ar: 'الوزن'
+    fr: "Poids",
+    ar: "الوزن",
   },
   brut: {
-    fr: 'Brut',
-    ar: 'الوزن القائم'
+    fr: "Brut",
+    ar: "الوزن القائم",
   },
   tare: {
-    fr: 'Tare',
-    ar: 'التارة'
+    fr: "Tare",
+    ar: "التارة",
   },
   net: {
-    fr: 'Net',
-    ar: 'الصافي'
+    fr: "Net",
+    ar: "الصافي",
   },
   unitPrice: {
-    fr: 'Prix unitaire',
-    ar: 'ثمن الوحدة'
+    fr: "Prix unitaire",
+    ar: "ثمن الوحدة",
   },
   amount: {
-    fr: 'Montant (DA)',
-    ar: 'المجموع (دج)'
+    fr: "Montant (DA)",
+    ar: "المجموع (دج)",
   },
   total: {
-    fr: 'TOTAL (DA)',
-    ar: 'المجموع'
+    fr: "TOTAL (DA)",
+    ar: "المجموع",
   },
   notice: {
     fr: "Après huit (8) jours, l’emballage ne sera pas remboursé.",
-    ar: 'بعد ثمانية (8) أيام، لا يتم تعويض التغليف.'
+    ar: "بعد ثمانية (8) أيام، لا يتم تعويض التغليف.",
   },
   signature: {
-    fr: 'Signature',
-    ar: 'الإمضاء'
-  }
+    fr: "Signature",
+    ar: "الإمضاء",
+  },
 };
 
-function formatCurrency(amountCents: number, currency = 'DZD') {
-  return new Intl.NumberFormat('fr-DZ', {
-    style: 'currency',
+function formatCurrency(amountCents: number, currency = "DZD") {
+  return new Intl.NumberFormat("fr-DZ", {
+    style: "currency",
     currency,
-    minimumFractionDigits: 2
+    minimumFractionDigits: 2,
   }).format(amountCents / 100);
 }
 
 function formatNumber(value: number) {
-  return new Intl.NumberFormat('fr-DZ', {
+  return new Intl.NumberFormat("fr-DZ", {
     minimumFractionDigits: 2,
-    maximumFractionDigits: 2
+    maximumFractionDigits: 2,
   }).format(value);
 }
 
-export function renderInvoiceHtml(invoice: Invoice, settings: CompanySettings, options: RenderOptions) {
+export function renderInvoiceHtml(
+  invoice: Invoice,
+  settings: CompanySettings,
+  options: RenderOptions,
+) {
   const locale = options.locale;
-  const dir = locale === 'ar' ? 'rtl' : 'ltr';
+  const dir = locale === "ar" ? "rtl" : "ltr";
   const itemsHtml = (invoice.items ?? [])
     .map((item) => {
       const brut = Number(item.weightBrut ?? 0);
       const tare = Number(item.weightTare ?? 0);
       const net = Number(item.weightNet ?? 0);
       return `<tr>
-        <td>${item.marque ?? ''}</td>
-        <td>${item.colisCount ?? ''}</td>
-        <td>${item.product?.name ?? ''}</td>
+        <td>${item.marque ?? ""}</td>
+        <td>${item.colisCount ?? ""}</td>
+        <td>${item.product?.name ?? ""}</td>
         <td>${formatNumber(brut)}</td>
         <td>${formatNumber(tare)}</td>
         <td>${formatNumber(net)}</td>
@@ -122,7 +126,7 @@ export function renderInvoiceHtml(invoice: Invoice, settings: CompanySettings, o
         <td>${formatCurrency(Number(item.amountCents ?? 0), invoice.currencyCode)}</td>
       </tr>`;
     })
-    .join('');
+    .join("");
 
   return `<!DOCTYPE html>
   <html lang="${locale}" dir="${dir}">
@@ -134,7 +138,7 @@ export function renderInvoiceHtml(invoice: Invoice, settings: CompanySettings, o
           margin: 12mm;
         }
         body {
-          font-family: 'Segoe UI', 'Tahoma', sans-serif;
+          font-family: "Segoe UI", "Tahoma", sans-serif;
           font-size: 12px;
           color: #111;
         }
@@ -195,9 +199,9 @@ export function renderInvoiceHtml(invoice: Invoice, settings: CompanySettings, o
       <div class="header">
         <div class="company">
           <strong>${settings.name}</strong><br />
-          ${settings.marketName ?? ''}<br />
-          ${settings.address ?? ''}<br />
-          ${settings.phone ?? ''}
+          ${settings.marketName ?? ""}<br />
+          ${settings.address ?? ""}<br />
+          ${settings.phone ?? ""}
         </div>
         <div class="title">
           ${translate.title.fr}<br />
@@ -210,17 +214,17 @@ export function renderInvoiceHtml(invoice: Invoice, settings: CompanySettings, o
       </div>
       <div class="meta">
         <div>
-          ${translate.deliveredTo.fr}: ${invoice.deliveredTo ?? ''}<br />
-          ${translate.brand.fr}: ${invoice.brand ?? ''} / ${translate.packaging.fr}: ${invoice.packaging ?? ''} / ${translate.consignment.fr}: ${invoice.consignment ?? ''}
+          ${translate.deliveredTo.fr}: ${invoice.deliveredTo ?? ""}<br />
+          ${translate.brand.fr}: ${invoice.brand ?? ""} / ${translate.packaging.fr}: ${invoice.packaging ?? ""} / ${translate.consignment.fr}: ${invoice.consignment ?? ""}
         </div>
         <div style="text-align:right">
-          ${translate.deliveredTo.ar}: ${invoice.deliveredTo ?? ''}<br />
-          ${translate.brand.ar}: ${invoice.brand ?? ''} / ${translate.packaging.ar}: ${invoice.packaging ?? ''} / ${translate.consignment.ar}: ${invoice.consignment ?? ''}
+          ${translate.deliveredTo.ar}: ${invoice.deliveredTo ?? ""}<br />
+          ${translate.brand.ar}: ${invoice.brand ?? ""} / ${translate.packaging.ar}: ${invoice.packaging ?? ""} / ${translate.consignment.ar}: ${invoice.consignment ?? ""}
         </div>
       </div>
       <div class="meta">
         <div>
-          ${translate.carreau.fr}: ${invoice.carreau ?? settings.carreauNo ?? ''}
+          ${translate.carreau.fr}: ${invoice.carreau ?? settings.carreauNo ?? ""}
         </div>
         <div style="text-align:right">
           ${translate.date.fr}: ${invoice.date}<br />

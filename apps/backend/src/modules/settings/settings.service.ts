@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 
-import { CompanySettings } from '../../domain/entities/company-settings.entity.js';
-import { UpdateCompanySettingsDto } from './dto/update-company-settings.dto.js';
-import { UpdateNumberingDto } from './dto/update-numbering.dto.js';
+import { CompanySettings } from "../../domain/entities/company-settings.entity.js";
+import { UpdateCompanySettingsDto } from "./dto/update-company-settings.dto.js";
+import { UpdateNumberingDto } from "./dto/update-numbering.dto.js";
 
 @Injectable()
 export class SettingsService {
@@ -12,17 +12,17 @@ export class SettingsService {
 
   constructor(
     @InjectRepository(CompanySettings)
-    private readonly settingsRepository: Repository<CompanySettings>
+    private readonly settingsRepository: Repository<CompanySettings>,
   ) {}
 
   async getCompany(): Promise<CompanySettings> {
     let settings = await this.settingsRepository.findOne({});
     if (!settings) {
       settings = this.settingsRepository.create({
-        name: 'Khenouci Chabane',
-        marketName: 'Mandataire fruits & légumes',
-        carreauNo: '1',
-        footerNote: "Après huit (8) jours, l’emballage ne sera pas remboursé."
+        name: "Khenouci Chabane",
+        marketName: "Mandataire fruits & légumes",
+        carreauNo: "1",
+        footerNote: "Après huit (8) jours, l’emballage ne sera pas remboursé.",
       });
       await this.settingsRepository.save(settings);
     }
@@ -40,7 +40,7 @@ export class SettingsService {
     return {
       invoicePrefix: settings.invoicePrefix,
       invoicePadding: settings.invoicePadding,
-      resetAnnually: this.resetAnnually
+      resetAnnually: this.resetAnnually,
     };
   }
 

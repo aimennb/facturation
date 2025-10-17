@@ -1,7 +1,7 @@
-import { MigrationInterface, QueryRunner } from 'typeorm';
+import { MigrationInterface, QueryRunner } from "typeorm";
 
 export class InitSchema1700000000000 implements MigrationInterface {
-  name = 'InitSchema1700000000000';
+  name = "InitSchema1700000000000";
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
@@ -127,15 +127,15 @@ export class InitSchema1700000000000 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query('DROP TABLE IF EXISTS audit_logs');
-    await queryRunner.query('DROP TABLE IF EXISTS payments');
-    await queryRunner.query('DROP TABLE IF EXISTS supplier_advances');
-    await queryRunner.query('DROP TABLE IF EXISTS invoice_items');
-    await queryRunner.query('DROP TABLE IF EXISTS invoices');
-    await queryRunner.query('DROP TABLE IF EXISTS users');
-    await queryRunner.query('DROP TABLE IF EXISTS products');
-    await queryRunner.query('DROP TABLE IF EXISTS customers');
-    await queryRunner.query('DROP TABLE IF EXISTS suppliers');
-    await queryRunner.query('DROP TABLE IF EXISTS company_settings');
+    await queryRunner.query("DROP TABLE IF EXISTS audit_logs");
+    await queryRunner.query("DROP TABLE IF EXISTS payments");
+    await queryRunner.query("DROP TABLE IF EXISTS supplier_advances");
+    await queryRunner.query("DROP TABLE IF EXISTS invoice_items");
+    await queryRunner.query("DROP TABLE IF EXISTS invoices");
+    await queryRunner.query("DROP TABLE IF EXISTS users");
+    await queryRunner.query("DROP TABLE IF EXISTS products");
+    await queryRunner.query("DROP TABLE IF EXISTS customers");
+    await queryRunner.query("DROP TABLE IF EXISTS suppliers");
+    await queryRunner.query("DROP TABLE IF EXISTS company_settings");
   }
 }

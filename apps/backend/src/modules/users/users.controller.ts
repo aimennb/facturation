@@ -6,19 +6,19 @@ import {
   Param,
   Patch,
   Post,
-  UseGuards
-} from '@nestjs/common';
+  UseGuards,
+} from "@nestjs/common";
 
-import { Roles } from '../../common/roles.decorator.js';
-import { RolesGuard } from '../../common/roles.guard.js';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard.js';
-import { UsersService } from './users.service.js';
-import { CreateUserDto } from './dto/create-user.dto.js';
-import { UpdateUserDto } from './dto/update-user.dto.js';
+import { Roles } from "../../common/roles.decorator.js";
+import { RolesGuard } from "../../common/roles.guard.js";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
+import { UsersService } from "./users.service.js";
+import { CreateUserDto } from "./dto/create-user.dto.js";
+import { UpdateUserDto } from "./dto/update-user.dto.js";
 
-@Controller({ path: 'users', version: '1' })
+@Controller({ path: "users", version: "1" })
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Roles('ADMIN')
+@Roles("ADMIN")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -32,18 +32,18 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get(":id")
+  findOne(@Param("id") id: string) {
     return this.usersService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() payload: UpdateUserDto) {
+  @Patch(":id")
+  update(@Param("id") id: string, @Body() payload: UpdateUserDto) {
     return this.usersService.update(id, payload);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete(":id")
+  remove(@Param("id") id: string) {
     return this.usersService.remove(id);
   }
 }

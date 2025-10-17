@@ -1,15 +1,15 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity } from "typeorm";
 
-import { BaseEntity } from './base.entity.js';
+import { BaseEntity } from "./base.entity.js";
 
-@Entity({ name: 'products' })
+@Entity({ name: "products" })
 export class Product extends BaseEntity {
-  @Column({ type: 'text' })
+  @Column({ type: "text" })
   name!: string;
 
-  @Column({ type: 'text', default: 'kg' })
+  @Column({ type: "text", default: "kg" })
   unit!: string;
 
-  @Column({ type: 'bigint', name: 'default_price_cents', nullable: true })
+  @Column({ type: "bigint", name: "default_price_cents", nullable: true })
   defaultPriceCents?: number | null;
 }
