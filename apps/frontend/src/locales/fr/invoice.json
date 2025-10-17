@@ -1,0 +1,25 @@
+{
+  "title": "Bulletin d’achat",
+  "deliveredTo": "Délivré à",
+  "brand": "Marque",
+  "packaging": "Emb.",
+  "consignment": "Cons.",
+  "carreau": "Carreau",
+  "date": "Date",
+  "table": {
+    "marque": "Marque",
+    "colis": "N. colis",
+    "product": "Nature des produits",
+    "weight": "Poids",
+    "brut": "Brut",
+    "tare": "Tare",
+    "net": "Net",
+    "unitPrice": "Prix unitaire",
+    "amount": "Montant (DA)"
+  },
+  "totals": {
+    "total": "TOTAL (DA)"
+  },
+  "notice": "Après huit (8) jours, l’emballage ne sera pas remboursé.",
+  "number": "N°"
+}

@@ -1,0 +1,10 @@
+node_modules
+coverage
+.env
+apps/backend/dist
+apps/backend/.env
+apps/frontend/node_modules
+apps/frontend/dist
+apps/frontend/.env
+reports
+artifacts

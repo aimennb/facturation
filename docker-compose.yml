@@ -1,0 +1,41 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: facturation
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./apps/backend
+    command: npm run start:dev
+    env_file:
+      - apps/backend/.env.example
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/facturation
+    ports:
+      - '4000:4000'
+    depends_on:
+      - postgres
+
+  frontend:
+    build:
+      context: ./apps/frontend
+    command: npm run dev -- --host 0.0.0.0 --port 5173
+    env_file:
+      - apps/frontend/.env.example
+    environment:
+      VITE_API_URL: http://backend:4000/api
+    ports:
+      - '5173:5173'
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
