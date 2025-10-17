@@ -1,0 +1,25 @@
+{
+  "appTitle": "Bulletin d’achat",
+  "login": {
+    "title": "Connexion",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "submit": "Se connecter",
+    "language": "Langue"
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "invoices": "Factures",
+    "suppliers": "Fournisseurs",
+    "advances": "Avances",
+    "reports": "Rapports",
+    "settings": "Paramètres",
+    "portal": "Portail fournisseur"
+  },
+  "actions": {
+    "newInvoice": "Nouvelle facture",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "print": "Imprimer"
+  }
+}
