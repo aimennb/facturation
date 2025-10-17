@@ -1,4 +1,4 @@
-import * as argon2 from 'argon2';
+import * as argon2 from "argon2";
 
 import { AppDataSource } from '../data-source.js';
 import { CompanySettings } from '../domain/entities/company-settings.entity.js';
@@ -17,7 +17,7 @@ async function seed() {
     const settings = manager.create(CompanySettings, {
       name: 'Khenouci Chabane',
       marketName: 'Mandataire fruits & légumes',
-      carreauNo: '12',
+      carreauNo: '62',
       address: 'Marché de gros Eucalyptus',
       phone: '+213 555 555 555'
     });
