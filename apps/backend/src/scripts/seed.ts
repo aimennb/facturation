@@ -20,6 +20,7 @@ async function seed() {
       carreauNo: "12",
       address: "Marché de gros Eucalyptus",
       phone: "+213 555 555 555",
+
     });
     await manager.save(settings);
   }
