@@ -13,7 +13,6 @@ import { ProductsModule } from './modules/products/products.module.js';
 import { InvoicesModule } from './modules/invoices/invoices.module.js';
 import { AdvancesModule } from './modules/advances/advances.module.js';
 import { PaymentsModule } from './modules/payments/payments.module.js';
-import { ReportsModule } from './modules/reports/reports.module.js';
 import { SettingsModule } from './modules/settings/settings.module.js';
 import { AuditModule } from './modules/audit/audit.module.js';
 
@@ -51,7 +50,6 @@ import { AuditModule } from './modules/audit/audit.module.js';
     InvoicesModule,
     AdvancesModule,
     PaymentsModule,
-    ReportsModule,
     SettingsModule,
     AuditModule
   ]
